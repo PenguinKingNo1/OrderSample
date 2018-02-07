@@ -1,0 +1,30 @@
+﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $("#btn_getlist").click(getOrderList);
+    });
+    function getOrderList() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:51798/Orders/GetAll',
+            dataType: 'json',
+            success: function (data) {
+                for (i = 0; i < data.length; i++) {
+                    $("#showbox").append("OrderId:" + data[i].OrderId + "\n");
+                    $("#showbox").append("AccountNumber:" + data[i].AccountNumber + "\n");
+                    $("#showbox").append("Customer Name:" + data[i].CustomerFirstName + " " + data[i].CustomerLastName + "\n");
+                    $("#showbox").append("Service Count:" + data[i].Services.length + "\n\n");
+                }
+            }
+        });
+    }
+</script>
+<body>
+    <div>
+        <h2>OrderList</h2>
+        <textarea id="showbox" style="height:400px; width:500px"></textarea>
+        <button type="button" class="btn btn-secondary" id="btn_getlist">GetList</button>
+    </div> 
+</body>
+
